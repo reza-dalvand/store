@@ -18,29 +18,29 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "jalali_date",  # NEW
-    # "rosetta",  # NEW
-    # "rest_framework_swagger",  # NEW
-    # "drf_yasg",  # NEW
-    # "orders_module",  # NEW
-    # "home_module",  # NEW
-    # "modeltranslation",  # NEW
-    # "accounts_module",  # NEW
-    # "rest_framework",  # NEW
-    # "site_settings",  # NEW
-    # "contactUs_module",  # NEW
-    # "products_module",  # NEW
-    # "django.contrib.humanize",  # NEW
-    # "django_render_partial",  # NEW
-    # "sorl.thumbnail",  # NEW
-    # "debug_toolbar",  # NEW
+    "jalali_date",  # NEW
+    "rosetta",  # NEW
+    "rest_framework_swagger",  # NEW
+    "drf_yasg",  # NEW
+    "orders_module",  # NEW
+    "home_module",  # NEW
+    "modeltranslation",  # NEW
+    "accounts_module",  # NEW
+    "rest_framework",  # NEW
+    "site_settings",  # NEW
+    "contactUs_module",  # NEW
+    "products_module",  # NEW
+    "django.contrib.humanize",  # NEW
+    "django_render_partial",  # NEW
+    "sorl.thumbnail",  # NEW
+    "debug_toolbar",  # NEW
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # new
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",  # new
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # new
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -119,15 +119,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-# LANGUAGES = (
-#     ("fa", _("فارسی")),
-#     ("en", _("English")),
-# )
+LANGUAGES = (
+    ("fa", _("فارسی")),
+    ("en", _("English")),
+)
 
 
-# LOCALE_PATHS = [
-#     BASE_DIR / "locale/",
-# ]
+LOCALE_PATHS = [
+    BASE_DIR / "locale/",
+]
 
 
 # Default primary key field type
