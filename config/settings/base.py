@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
@@ -22,14 +23,14 @@ INSTALLED_APPS = [
     "rosetta",  # NEW
     "rest_framework_swagger",  # NEW
     "drf_yasg",  # NEW
-    "orders_module",  # NEW
-    "home_module",  # NEW
+    # "orders_module",  # NEW
+    # "home_module",  # NEW
     "modeltranslation",  # NEW
-    "accounts_module",  # NEW
+    # "accounts_module",  # NEW
     "rest_framework",  # NEW
-    "site_settings",  # NEW
-    "contactUs_module",  # NEW
-    "products_module",  # NEW
+    # "site_settings",  # NEW
+    # "contactUs_module",  # NEW
+    # "products_module",  # NEW
     "django.contrib.humanize",  # NEW
     "django_render_partial",  # NEW
     "sorl.thumbnail",  # NEW
