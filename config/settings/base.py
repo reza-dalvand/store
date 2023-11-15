@@ -21,18 +21,15 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.users",
     "apps.models.products",
+    "apps.models.baskets",
+    "apps.models.contact",
+    "apps.models.site_settings",
     "jalali_date",  # NEW
     "rosetta",  # NEW
     "rest_framework_swagger",  # NEW
     "drf_yasg",  # NEW
-    # "orders_module",  # NEW
-    # "home_module",  # NEW
     "modeltranslation",  # NEW
-    # "accounts_module",  # NEW
     "rest_framework",  # NEW
-    # "site_settings",  # NEW
-    # "contactUs_module",  # NEW
-    # "products_module",  # NEW
     "django.contrib.humanize",  # NEW
     "django_render_partial",  # NEW
     "sorl.thumbnail",  # NEW

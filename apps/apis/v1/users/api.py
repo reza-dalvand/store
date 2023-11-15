@@ -1,9 +1,12 @@
+import uuid
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status, generics
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from apps.users.models import User
 from apps.users.serializers import (
     RegisterUserSerializer,
@@ -12,7 +15,6 @@ from apps.users.serializers import (
     ResetPasswordEmailSerializer,
     ChangeForgetPasswordSerializer,
 )
-import uuid
 
 
 class RegisterAPIView(generics.GenericAPIView):

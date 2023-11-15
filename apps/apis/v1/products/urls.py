@@ -1,7 +1,10 @@
 from django.urls import path
-
-# from .api import ()
+from rest_framework.routers import DefaultRouter
+from .api import ProductApi
 
 app_name = "products"
 
-urlpatterns = []
+router = DefaultRouter()
+router.register("products", ProductApi, basename="product_api")
+
+urlpatterns = [] + router.urls
