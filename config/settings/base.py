@@ -3,14 +3,12 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+
 
 # Application definition
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -19,6 +17,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "apps",
+    "apps.core",
+    "apps.users",
+    "apps.models.products",
     "jalali_date",  # NEW
     "rosetta",  # NEW
     "rest_framework_swagger",  # NEW
@@ -49,9 +51,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
 ROOT_URLCONF = "config.urls"
-
 
 TEMPLATES = [
     {
@@ -71,22 +71,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 1,
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "ALLOWED_VERSIONS": ["v1", "v2"],
+    "DEFAULT_VERSION": "v1",
 }
 
-# AUTH_USER_MODEL = "accounts_module.CustomUser"
-# AUTHENTICATION_BACKENDS = [
-#     # "accounts_module.backends.RegisterWithEmail",
-#     "django.contrib.auth.backends.ModelBackend",
-# ]
-LOGIN_URL = "accounts:login"
-
+AUTH_USER_MODEL = "users.User"
+AUTHENTICATION_BACKENDS = [
+    "apps.users.backend.RegisterWithEmail",
+    "django.contrib.auth.backends.ModelBackend",
+]
+# LOGIN_URL = "accounts:login"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -106,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -125,11 +125,9 @@ LANGUAGES = (
     ("en", _("English")),
 )
 
-
 LOCALE_PATHS = [
     BASE_DIR / "locale/",
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

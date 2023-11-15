@@ -1,7 +1,8 @@
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -13,10 +14,10 @@ DATABASES = {
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / "assets",
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / "assets",
+]
 
 
-# MEDIA_URL = "/media/"
-# MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
