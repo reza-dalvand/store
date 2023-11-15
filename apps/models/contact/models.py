@@ -1,9 +1,10 @@
 from django.db import models
+from apps.core.models import BaseModel
 from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
-class ContactUs(models.Model):
+class ContactUs(BaseModel):
     fullname = models.CharField(_("fullname"), max_length=150)
     email = models.EmailField(_("email"))
     subject = models.TextField(_("subject"))

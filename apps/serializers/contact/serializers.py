@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from contactUs_module.models import ContactUs
+from apps.models.contact.models import ContactUs
 
 
 class ContactUsSerializer(serializers.ModelSerializer):

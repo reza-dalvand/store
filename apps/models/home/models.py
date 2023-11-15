@@ -1,9 +1,9 @@
 from django.db import models
-from django.urls import reverse
+from apps.core.models import BaseModel
 from django.utils.translation import gettext_lazy as _
 
 
-class MainSlider(models.Model):
+class MainSlider(BaseModel):
     title = models.CharField(_("name"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=255, null=True, blank=True)
     description = models.TextField(_("desc"), null=True, blank=True)

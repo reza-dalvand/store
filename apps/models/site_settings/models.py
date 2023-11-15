@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from apps.core.models import BaseModel
 
 
 # Create your models here.
-class SiteSetting(models.Model):
+class SiteSetting(BaseModel):
     title = models.CharField(_("title"), max_length=90)
     email = models.EmailField(_("email"), null=True)
     short_description = models.TextField(_("short description"))
