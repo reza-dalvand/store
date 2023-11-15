@@ -8,7 +8,10 @@ from apps.serializers import ContactUsSerializer
 
 class ContactUsView(GenericAPIView):
     serializer_class = ContactUsSerializer
-    # queryset = SiteSetting.objects.filter(is_active=True).first()
+
+    def get_queryset(self):
+        qs = SiteSetting.objects.filter(is_active=True).first()
+        return qs
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

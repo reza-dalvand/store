@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
@@ -17,23 +16,23 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "apps",
     "apps.core",
     "apps.users",
     "apps.models.products",
     "apps.models.baskets",
     "apps.models.contact",
     "apps.models.site",
-    "jalali_date",  # NEW
-    "rosetta",  # NEW
-    "rest_framework_swagger",  # NEW
-    "drf_yasg",  # NEW
-    "modeltranslation",  # NEW
-    "rest_framework",  # NEW
-    "django.contrib.humanize",  # NEW
-    "django_render_partial",  # NEW
-    "sorl.thumbnail",  # NEW
-    "debug_toolbar",  # NEW
+    "apps.models.home",
+    "jalali_date",
+    "rosetta",
+    "rest_framework_swagger",
+    "drf_yasg",
+    "modeltranslation",
+    "rest_framework",
+    "django.contrib.humanize",
+    "django_render_partial",
+    "sorl.thumbnail",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
