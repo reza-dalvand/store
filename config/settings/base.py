@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     "apps.models.products",
     "apps.models.baskets",
     "apps.models.contact",
-    "apps.models.site_settings",
+    "apps.models.site",
     "jalali_date",  # NEW
     "rosetta",  # NEW
     "rest_framework_swagger",  # NEW

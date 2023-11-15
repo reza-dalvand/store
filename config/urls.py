@@ -45,6 +45,7 @@ if "development" in os.getenv("DJANGO_ENV"):
 urlpatterns += i18n_patterns(
     path("admin/", admin.site.urls),
     path("rosetta/", include("rosetta.urls")),
-    path("", include("apps.core.urls", namespace="apps")),
+    path("api/v1/", include("apps.core.v1_urls", namespace="v1")),
+    path("api/v2/", include("apps.core.v2_urls", namespace="v2")),
     prefix_default_language=None,
 )

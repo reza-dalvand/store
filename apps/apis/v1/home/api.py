@@ -5,7 +5,7 @@
 # from home_module.models import MainSlider
 # from orders_module.models import Order, OrderDetail
 # from products_module.models import ProductCategory, Product
-# from site_settings.models import SiteSetting
+# from sitesite.models import SiteSetting
 #
 #
 # # Create your views here.

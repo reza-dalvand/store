@@ -2,13 +2,13 @@ from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from apps.models.site_settings.models import SiteSetting
+from apps.models.site.models import SiteSetting
 from apps.serializers import ContactUsSerializer
 
 
 class ContactUsView(GenericAPIView):
     serializer_class = ContactUsSerializer
-    queryset = SiteSetting.objects.filter(is_active=True).first()
+    # queryset = SiteSetting.objects.filter(is_active=True).first()
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
