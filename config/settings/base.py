@@ -83,7 +83,6 @@ AUTHENTICATION_BACKENDS = [
     "apps.users.backend.RegisterWithEmail",
     "django.contrib.auth.backends.ModelBackend",
 ]
-# LOGIN_URL = "accounts:login"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -120,6 +119,7 @@ LANGUAGES = (
     ("fa", _("فارسی")),
     ("en", _("English")),
 )
+
 
 LOCALE_PATHS = [
     BASE_DIR / "locale/",

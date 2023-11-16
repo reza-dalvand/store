@@ -28,5 +28,9 @@ class User(AbstractUser):
     )
     token = models.CharField(_("token"), max_length=300, default=uuid.uuid4())
 
+    class Meta:
+        verbose_name = _("کاربر")
+        verbose_name_plural = _("کاربران")
+
     def __str__(self):
         return self.email

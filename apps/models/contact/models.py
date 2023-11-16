@@ -12,5 +12,9 @@ class ContactUs(BaseModel):
     date = models.DateTimeField(_("date"), auto_now_add=True)
     is_read = models.BooleanField(_("read / unread"), default=False)
 
+    class Meta:
+        verbose_name = _("Contact Us")
+        verbose_name_plural = _("Contact Us")
+
     def __str__(self):
         return self.fullname

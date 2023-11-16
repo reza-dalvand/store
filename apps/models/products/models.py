@@ -2,13 +2,16 @@ from django.urls import reverse
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-
 from apps.core.models import BaseModel
 
 
 class ProductBrand(BaseModel):
     name = models.CharField(_("name"), max_length=255)
     slug = models.SlugField(_("slug"), blank=True, max_length=255)
+
+    class Meta:
+        verbose_name = _("Brand")
+        verbose_name_plural = _("Brands")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -24,6 +27,10 @@ class ProductCategory(BaseModel):
     )
     name = models.CharField(_("name"), max_length=255)
     slug = models.SlugField(_("slug"), blank=True, max_length=255)
+
+    class Meta:
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -59,6 +66,10 @@ class Product(BaseModel):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = _("Product")
+        verbose_name_plural = _("Products")
+
     def __str__(self):
         return self.name
 
@@ -76,6 +87,10 @@ class ProductGallery(BaseModel):
     )
     image = models.ImageField(_("image"), upload_to="galleries", null=True, blank=True)
 
+    class Meta:
+        verbose_name = _("Gallery")
+        verbose_name_plural = _("Galleries")
+
     def __str__(self):
         return self.product.name
 
@@ -88,6 +103,10 @@ class ProductComment(BaseModel):
     email = models.EmailField(_("email address"))
     message = models.TextField(_("message"))
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Comment")
+        verbose_name_plural = _("Comments")
 
     def __str__(self):
         return self.full_name

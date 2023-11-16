@@ -5,6 +5,6 @@ from .api import ProductApi
 app_name = "products"
 
 router = DefaultRouter()
-router.register("product-list", ProductApi, basename="product_api")
+router.register("list", ProductApi, basename="product_api")
 
 urlpatterns = [] + router.urls
