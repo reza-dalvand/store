@@ -1,5 +1,3 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import update_last_login
 from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
@@ -52,13 +50,11 @@ class LogoutAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
         request.user.auth_token.delete()
-        return Response(
-            {"success": "Logged out successfully"}, status=status.HTTP_200_OK
-        )
+        return Response({"Logged out": "successfully"}, status=status.HTTP_200_OK)
 
 
-class UserProfileView(generics.UpdateAPIView):
-    """update user profile"""
+class UserProfileAPIView(generics.UpdateAPIView):
+    """User Profile"""
 
     serializer_class = UserProfileSerializer
     queryset = User.objects.all()
@@ -71,10 +67,9 @@ class UserProfileView(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status.HTTP_200_OK)
-        return Response(serializer.data, status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status.HTTP_200_OK)
 
 
 class ChangePasswordView(generics.UpdateAPIView):
