@@ -1,8 +1,60 @@
 from django.contrib.auth.password_validation import validate_password
-from django.utils.translation import gettext_lazy as _
+from django.db.models import Q
 from rest_framework import serializers
+from apps.users.models import User
+from django.utils.translation import gettext_lazy as _
 
-from .models import User
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password2 = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "email",
+            "password",
+            "password2",
+        ]
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def validate_email(self, value):
+        if User.objects.filter(Q(email=value) | Q(username=value)).exists():
+            raise serializers.ValidationError(
+                {"error": "Email or username in use already"}
+            )
+        return value
+
+    def validate(self, validated_data):
+        password = validated_data["password"]
+        password2 = validated_data["password2"]
+        if password != password2:
+            raise serializers.ValidationError({"error": _("passwords did not match")})
+        return validated_data
+
+    def create(self, validate_data):
+        user = User.objects.create(
+            email=validate_data["email"], username=validate_data["username"]
+        )
+        user.set_password(validate_data["password"])
+        user.save()
+        return user
+
+
+class LoginSerializer(serializers.Serializer):
+    """email considered char field for check username and email together"""
+
+    email = serializers.EmailField(max_length=256)
+    password = serializers.CharField(max_length=128, write_only=True)
+
+    def validate(self, validated_data):
+        email = validated_data["email"]
+        password = validated_data["password"]
+        user = User.objects.filter(Q(email=email) | Q(username=email)).first()
+        if user and user.check_password(password):
+            validated_data["user"] = user
+            return validated_data
+        raise serializers.ValidationError({"error": "user does not exist"})
 
 
 class UserProfileSerializer(serializers.ModelSerializer):

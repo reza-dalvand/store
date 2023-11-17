@@ -1,56 +1,50 @@
-import uuid
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import update_last_login
 from rest_framework import status, generics
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.users.models import User
 from apps.users.serializers import (
-    RegisterUserSerializer,
+    RegisterSerializer,
     UserProfileSerializer,
     ChangePasswordSerializer,
     ResetPasswordEmailSerializer,
     ChangeForgetPasswordSerializer,
+    LoginSerializer,
 )
+
+import uuid
 
 
 class RegisterAPIView(generics.GenericAPIView):
     """Registers user"""
 
-    serializer_class = RegisterUserSerializer
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if not serializer.is_valid():
-            return Response({"Register": "Bad Request"}, status.HTTP_400_BAD_REQUEST)
-
-        serializer.save()
-        return Response(serializer.data, status.HTTP_201_CREATED)
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token = Token.objects.create(user=user).key
+        return Response({"token": token}, status.HTTP_201_CREATED)
 
 
 class LoginAPIView(APIView):
     """login user"""
 
-    def get(self, request):
-        if request.user.is_authenticated:
-            return Response({"login": "redirect to home"}, status=status.HTTP_302_FOUND)
-        return Response({"login": "Successful"}, status=status.HTTP_200_OK)
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        email = request.data.get("email")
-        password = request.data.get("password")
-        if email or password:
-            user = authenticate(email=email, password=password)
-            if user:
-                login(request, user)
-                return Response({"login": "Successful"}, status=status.HTTP_200_OK)
-            return Response(
-                {"login": "User Not Found"}, status=status.HTTP_404_NOT_FOUND
-            )
-        return Response({"login": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+        update_last_login(None, user)
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"status": status.HTTP_200_OK, "Token": token.key})
 
 
 class LogoutAPIView(LoginRequiredMixin, APIView):
