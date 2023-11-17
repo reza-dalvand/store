@@ -47,12 +47,14 @@ class LoginAPIView(APIView):
         return Response({"status": status.HTTP_200_OK, "Token": token.key})
 
 
-class LogoutAPIView(LoginRequiredMixin, APIView):
+class LogoutAPIView(APIView):
     """logout user"""
 
     def get(self, request, *args, **kwargs):
-        logout(request)
-        return Response({"logout": "Successful"}, status=status.HTTP_200_OK)
+        request.user.auth_token.delete()
+        return Response(
+            {"success": "Logged out successfully"}, status=status.HTTP_200_OK
+        )
 
 
 class UserProfileView(generics.UpdateAPIView):
