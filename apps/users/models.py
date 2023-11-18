@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -21,6 +23,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
+    uid = models.CharField(_("uid"), max_length=300, default=uuid.uuid4())
 
     class Meta:
         verbose_name = _("کاربر")

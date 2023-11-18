@@ -93,10 +93,12 @@ class ResetPasswordApiView(APIView):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data["email"]
         user = User.objects.filter(email__iexact=email).first()
-        token = Token.objects.filter(user_id=user.id).first()
         api_version = request.version
-        callback_url = request.build_absolute_uri(
-            reverse(f"{api_version}:users:confirm-password", args=[token])
+
+        "" "diagnosis user with uid and api version" ""
+        callback_url = (
+            request.build_absolute_uri(reverse(f"{api_version}:users:confirm-password"))
+            + f"?token={user.uid}"
         )
         send_mail_to_users(
             _("change password"), f"click on link {callback_url}", [user.email]
@@ -111,14 +113,13 @@ class ConfirmPasswordView(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = ConfirmPasswordSerializer(data=request.data)
-        if serializer.is_valid():
-            user_token = kwargs.get("token")
-            new_password = serializer.data.get("new_password")
-            confirm_password = serializer.data.get("confirm_password")
-            user: User = User.objects.filter(token__iexact=user_token).first()
-            if user and new_password == confirm_password:
-                user.set_password(new_password)
-                user.token = uuid.uuid4()
-                user.save()
-            return Response(status.HTTP_200_OK)
-        return Response(status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        user_token = kwargs.get("token")
+        new_password = serializer.validated_data["new_password"]
+        confirm_password = serializer.validated_data["confirm_password"]
+        user: User = User.objects.filter(token__iexact=user_token).first()
+        if user and new_password == confirm_password:
+            user.set_password(new_password)
+            user.token = uuid.uuid4()
+            user.save()
+        return Response(status.HTTP_200_OK)
