@@ -13,7 +13,7 @@ from apps.users.serializers import (
     UserProfileSerializer,
     ChangePasswordSerializer,
     ResetPasswordSerializer,
-    ResetForgetPasswordSerializer,
+    ConfirmPasswordSerializer,
     LoginSerializer,
 )
 
@@ -110,7 +110,7 @@ class ConfirmPasswordView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        serializer = ResetForgetPasswordSerializer(data=request.data)
+        serializer = ConfirmPasswordSerializer(data=request.data)
         if serializer.is_valid():
             user_token = kwargs.get("token")
             new_password = serializer.data.get("new_password")

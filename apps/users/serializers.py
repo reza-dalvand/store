@@ -111,7 +111,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ResetForgetPasswordSerializer(serializers.Serializer):
+class ConfirmPasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(required=True)
     confirm_password = serializers.CharField(required=True)
 
