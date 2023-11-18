@@ -55,7 +55,7 @@ class LogoutAPIView(APIView):
 
 
 class UserProfileAPIView(generics.UpdateAPIView):
-    """User Profile"""
+    """Update User Profile"""
 
     serializer_class = UpdateProfileSerializer
     queryset = User.objects.all()

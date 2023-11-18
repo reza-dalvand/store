@@ -58,6 +58,8 @@ class LoginSerializer(serializers.Serializer):
 
 
 class UpdateProfileSerializer(serializers.ModelSerializer):
+    """unique true for username and email"""
+
     class Meta:
         model = User
         fields = ["username", "email", "first_name", "last_name", "phone_number"]
@@ -66,27 +68,13 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
             "last_name": {"required": True},
         }
 
-    def validate_email(self, value):
-        user = self.context["request"].user
-        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
-            raise serializers.ValidationError(
-                {"email": "This email is already in use."}
-            )
-        return value
-
-    def validate_username(self, value):
-        user = self.context["request"].user
-        if User.objects.exclude(pk=user.pk).filter(username=value).exists():
-            raise serializers.ValidationError(
-                {"username": "This username is already in use."}
-            )
-        return value
-
     def update(self, instance, validated_data):
+        """don't need to validate username and email, activated unique option for both"""
         instance.first_name = validated_data["first_name"]
         instance.last_name = validated_data["last_name"]
         instance.email = validated_data["email"]
         instance.username = validated_data["username"]
+        instance.phone_number = validated_data["phone_number"]
 
         instance.save()
 
@@ -148,11 +136,13 @@ class ResetPasswordSerializer(serializers.Serializer):
 class ConfirmPasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(
         required=True,
-        validators=RegexValidator(
-            regex="^(?=(.*\d){1})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}",
-            message="password must contain numbers, letters, simbols and length greeter than 8",
-            code="invalid change password",
-        ),
+        validators=[
+            RegexValidator(
+                regex="^(?=(.*\d){1})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}",
+                message="password must contain numbers, letters, simbols and length greeter than 8",
+                code="invalid change password",
+            )
+        ],
     )
     confirm_password = serializers.CharField(required=True)
     uid = serializers.CharField(max_length=255, required=True)
