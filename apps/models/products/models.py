@@ -95,7 +95,7 @@ class ProductGallery(BaseModel):
         return self.product.name
 
 
-class ProductComment(BaseModel):
+class ProductComment(models.Model):
     product = models.ForeignKey(
         Product, related_name="comments", on_delete=models.CASCADE
     )

@@ -7,6 +7,12 @@ class CommentSerializer(serializers.ModelSerializer):
         model = ProductComment
         exclude = ["created_at"]
 
+    def create(self, validated_data):
+        product = validated_data["product"]
+        comment = ProductComment.objects.create(product=product, **validated_data)
+        comment.save()
+        return comment
+
 
 class ProductSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
