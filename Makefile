@@ -11,4 +11,4 @@ migrate:
 
 translate:
 	django-admin compilemessages --ignore=venv
-	django-admin makemessages --all --ignore=venv
+	django-admin makemessages -l fa --ignore=venv
