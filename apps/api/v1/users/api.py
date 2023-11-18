@@ -1,8 +1,10 @@
 from django.contrib.auth.models import update_last_login
+from django.utils.translation import gettext_lazy as _
 from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
 from apps.users.models import User
@@ -10,12 +12,14 @@ from apps.users.serializers import (
     RegisterSerializer,
     UserProfileSerializer,
     ChangePasswordSerializer,
-    ResetPasswordEmailSerializer,
+    ResetPasswordSerializer,
     ResetForgetPasswordSerializer,
     LoginSerializer,
 )
 
 import uuid
+
+from scripts.mail import send_mail_to_users
 
 
 class RegisterAPIView(generics.GenericAPIView):
@@ -85,17 +89,23 @@ class ResetPasswordApiView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        serializer = ResetPasswordEmailSerializer(data=request.data)
-        if serializer.is_valid():
-            email = serializer.data.get("email")
-            user = User.objects.filter(email__iexact=email).first()
-            # url = f'http://127.0.0.1:8000/auth/api/change-password/{user.token}'
-            # send_mail_to_users(_("change password"), f'click on link {url}', [user.email])
-            return Response(status.HTTP_200_OK)
+        serializer = ResetPasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data["email"]
+        user = User.objects.filter(email__iexact=email).first()
+        token = Token.objects.filter(user_id=user.id).first()
+        api_version = request.version
+        callback_url = request.build_absolute_uri(
+            reverse(f"{api_version}:users:confirm-password", args=[token])
+        )
+        send_mail_to_users(
+            _("change password"), f"click on link {callback_url}", [user.email]
+        )
+        return Response(status.HTTP_200_OK)
 
 
-class ChangeForgetPasswordView(APIView):
-    """change password"""
+class ConfirmPasswordView(APIView):
+    """confirm reset password"""
 
     permission_classes = [AllowAny]
 

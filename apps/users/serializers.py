@@ -106,12 +106,9 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return value
 
     def update(self, instance, validated_data):
-        user = self.context["request"].user
-        if user.id == instance.id:
-            instance.set_password(validated_data["password"])
-            instance.save()
-            return instance
-        raise serializers.ValidationError({"error": "Forbidden"})
+        instance.set_password(validated_data["password"])
+        instance.save()
+        return instance
 
 
 class ResetForgetPasswordSerializer(serializers.Serializer):
@@ -119,5 +116,5 @@ class ResetForgetPasswordSerializer(serializers.Serializer):
     confirm_password = serializers.CharField(required=True)
 
 
-class ResetPasswordEmailSerializer(serializers.Serializer):
+class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
