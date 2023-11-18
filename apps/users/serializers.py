@@ -3,6 +3,7 @@ from django.db.models import Q
 from rest_framework import serializers
 from apps.users.models import User
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import RegexValidator
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -68,8 +69,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
+    """change old password"""
+
     password = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password]
+        write_only=True,
+        required=True,
+        validators=[
+            RegexValidator(
+                regex="^(?=(.*\d){1})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}",
+                message="password must contain numbers, letters, simbols and length greeter than 8",
+                code="invalid change password",
+            )
+        ],
     )
     password2 = serializers.CharField(write_only=True, required=True)
     old_password = serializers.CharField(write_only=True, required=True)
@@ -95,51 +106,15 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return value
 
     def update(self, instance, validated_data):
-        instance.set_password(validated_data["password"])
-        instance.save()
-
-        return instance
-
-
-class RegisterUserSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(write_only=True)
-
-    class Meta:
-        model = User
-        fields = ["username", "email", "password", "password2"]
-        extra_kwargs = {
-            "password": {"write_only": True},
-        }
-
-    def validate(self, data):
-        password = data["password"]
-        password2 = data["password2"]
-
-        if password != password2:
-            raise serializers.ValidationError(
-                {
-                    "password2": _("passwords not match"),
-                }
-            )
-        elif len(password) < 4:
-            raise serializers.ValidationError(
-                {"password2": _("password must be at least 4 characters")}
-            )
-        return data
-
-    def prepare_user_account(self):
-        self.user_account = User(
-            username=self.validated_data["username"], email=self.validated_data["email"]
-        )
-        self.user_account.set_password(self.validated_data["password"])
-
-    def save(self):
-        self.prepare_user_account()
-        self.user_account.save()
-        return self.user_account
+        user = self.context["request"].user
+        if user.id == instance.id:
+            instance.set_password(validated_data["password"])
+            instance.save()
+            return instance
+        raise serializers.ValidationError({"error": "Forbidden"})
 
 
-class ChangeForgetPasswordSerializer(serializers.Serializer):
+class ResetForgetPasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(required=True)
     confirm_password = serializers.CharField(required=True)
 

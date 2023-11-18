@@ -11,7 +11,7 @@ from apps.users.serializers import (
     UserProfileSerializer,
     ChangePasswordSerializer,
     ResetPasswordEmailSerializer,
-    ChangeForgetPasswordSerializer,
+    ResetForgetPasswordSerializer,
     LoginSerializer,
 )
 
@@ -72,14 +72,14 @@ class UserProfileAPIView(generics.UpdateAPIView):
         return Response(status.HTTP_200_OK)
 
 
-class ChangePasswordView(generics.UpdateAPIView):
-    """change password in user profile"""
+class ChangePasswordApiView(generics.UpdateAPIView):
+    """change old password"""
 
     queryset = User.objects.all()
     serializer_class = ChangePasswordSerializer
 
 
-class ResetPasswordView(APIView):
+class ResetPasswordApiView(APIView):
     """send reset password email"""
 
     permission_classes = [AllowAny]
@@ -100,7 +100,7 @@ class ChangeForgetPasswordView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        serializer = ChangeForgetPasswordSerializer(data=request.data)
+        serializer = ResetForgetPasswordSerializer(data=request.data)
         if serializer.is_valid():
             user_token = kwargs.get("token")
             new_password = serializer.data.get("new_password")
