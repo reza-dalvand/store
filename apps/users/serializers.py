@@ -1,4 +1,3 @@
-from django.contrib.auth.password_validation import validate_password
 from django.db.models import Q
 from rest_framework import serializers
 from apps.users.models import User
@@ -111,10 +110,18 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ConfirmPasswordSerializer(serializers.Serializer):
-    new_password = serializers.CharField(required=True)
-    confirm_password = serializers.CharField(required=True)
-
-
 class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
+
+
+class ConfirmPasswordSerializer(serializers.Serializer):
+    new_password = serializers.CharField(
+        required=True,
+        validators=RegexValidator(
+            regex="^(?=(.*\d){1})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}",
+            message="password must contain numbers, letters, simbols and length greeter than 8",
+            code="invalid change password",
+        ),
+    )
+    confirm_password = serializers.CharField(required=True)
+    uid = serializers.CharField(max_length=255, required=True)
