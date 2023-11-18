@@ -10,7 +10,7 @@ from rest_framework import status, generics
 from apps.users.models import User
 from apps.users.serializers import (
     RegisterSerializer,
-    UserProfileSerializer,
+    UpdateProfileSerializer,
     ChangePasswordSerializer,
     ResetPasswordSerializer,
     ConfirmPasswordSerializer,
@@ -57,7 +57,7 @@ class LogoutAPIView(APIView):
 class UserProfileAPIView(generics.UpdateAPIView):
     """User Profile"""
 
-    serializer_class = UserProfileSerializer
+    serializer_class = UpdateProfileSerializer
     queryset = User.objects.all()
 
     def get(self, request, *args, **kwargs):

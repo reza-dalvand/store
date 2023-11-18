@@ -57,7 +57,7 @@ class LoginSerializer(serializers.Serializer):
         raise serializers.ValidationError({"error": "user does not exist"})
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["username", "email", "first_name", "last_name", "phone_number"]
