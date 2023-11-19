@@ -12,3 +12,7 @@ migrate:
 translate:
 	django-admin compilemessages --ignore=venv
 	django-admin makemessages -l fa --ignore=venv
+
+
+run-tests:
+	python manage.py test --pattern="test_*.py" apps/tests/users --verbosity=1

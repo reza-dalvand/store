@@ -42,8 +42,8 @@ class LoginAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
         update_last_login(None, user)
-        token, created = Token.objects.get_or_create(user=user).key
-        return Response({"status": status.HTTP_200_OK, "Token": token})
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"status": status.HTTP_200_OK, "Token": token.key})
 
 
 class LogoutAPIView(APIView):
