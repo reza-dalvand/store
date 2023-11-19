@@ -5,7 +5,7 @@ from apps.models.baskets.models import BasketDetail, Basket
 class BasketDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketDetail
-        exclude = ["create_at", "basket", "product"]
+        exclude = ["create_at", "basket"]
 
 
 class BasketSerializer(serializers.ModelSerializer):

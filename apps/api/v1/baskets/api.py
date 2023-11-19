@@ -8,60 +8,58 @@ from rest_framework.viewsets import ModelViewSet
 
 from apps.models.baskets.models import Basket, BasketDetail
 from apps.serializers import BasketSerializer, BasketDetailSerializer
+from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
 
 
 class BasketDetailViewSet(ModelViewSet):
     """manage orders of user"""
 
     serializer_class = BasketSerializer
-    queryset = BasketDetail.objects.all()
 
-    def list(self, request, *args, **kwargs):
-        basket, created = Basket.objects.get_or_create(
+    def get_queryset(self):
+        basket, created = Basket.objects.prefetch_related("details").get_or_create(
             user_id=self.request.user.id, is_open=True
         )
+        return basket
+
+    def list(self, request, *args, **kwargs):
+        basket = self.get_queryset()
         serializer = BasketSerializer(basket)
         return Response(serializer.data, status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        basket, created = Basket.objects.prefetch_related("details").get_or_create(
-            user_id=self.request.user.id, is_open=True
-        )
-
+        basket = self.get_queryset()
         serializer = BasketDetailSerializer(data=request.POST)
-        if serializer.is_valid(raise_exception=True):
-            detail_product_in_basket = basket.details.filter(
-                product=request.POST.get("product_id")
-            ).first()
-            if detail_product_in_basket:
-                detail_product_in_basket.count += int(request.POST.get("count"))
-                detail_product_in_basket.save()
-                return Response(status.HTTP_201_CREATED)
-            BasketDetail.objects.create(
-                product_id=request.POST.get("product_id"),
-                basket_id=basket.id,
-                count=request.POST.get("count"),
-            )
-            return Response(status.HTTP_201_CREATED)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.validated_data["product"]
+        product_count = serializer.validated_data["count"]
+
+        """check product exists in basket"""
+        product_in_basket = basket.details.filter(product=product).first()
+        if product_in_basket:
+            product_in_basket.count += product_count
+            product_in_basket.save()
+            return Response(status.HTTP_200_OK)
+
+        """put product to basket"""
+        BasketDetail.objects.create(
+            basket_id=basket.id,
+            product=product,
+            count=product_count,
+        )
+        return Response(status.HTTP_201_CREATED)
 
     def destroy(self, request, *args, **kwargs):
-        basket, created = Basket.objects.prefetch_related("details").get_or_create(
-            user_id=self.request.user.id, is_open=True
-        )
+        basket = self.get_queryset()
         if kwargs.get("pk"):
             basket.details.filter(id=kwargs.get("pk")).delete()
             return Response(status.HTTP_200_OK)
         return Response(status.HTTP_404_NOT_FOUND)
 
 
-ZP_API_REQUEST = f"https://www.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
-ZP_API_VERIFY = f"https://www.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
-ZP_API_STARTPAY = f"https://www.zarinpal.com/pg/StartPay/"
-
 amount = 1000  # Rial / Required
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
-phone = "YOUR_PHONE_NUMBER"  # Optional
-# Important: need to edit for realy server.
+phone = "YOUR_PHONE_NUMBER"
 CallbackURL = "http://127.0.0.1:8080/verify/"
 
 

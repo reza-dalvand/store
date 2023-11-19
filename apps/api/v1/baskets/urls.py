@@ -6,6 +6,6 @@ from .api import BasketDetailViewSet
 app_name = "basket"
 
 router = DefaultRouter()
-router.register("list", BasketDetailViewSet, basename="order-api")
+router.register("", BasketDetailViewSet, basename="basket")
 
 urlpatterns = [] + router.urls
