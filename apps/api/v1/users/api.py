@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from scripts.mail import send_mail_to_users
 from rest_framework import status, generics
 from apps.users.models import User
-from apps.users.serializers import (
+from apps.serializers import (
     RegisterSerializer,
     UpdateProfileSerializer,
     ChangePasswordSerializer,
