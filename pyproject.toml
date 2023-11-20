@@ -10,7 +10,11 @@ python = "^3.10"
 djangorestframework = "^3.14.0"
 markdown = "^3.5.1"
 django-filter = "^23.3"
+model-bakery = "^1.17.0"
 
+
+[tool.poetry.group.dev.dependencies]
+model-bakery = "^1.17.0"
 
 [build-system]
 requires = ["poetry-core"]
