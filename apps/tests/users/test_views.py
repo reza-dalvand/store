@@ -131,8 +131,6 @@ class ResetPassword(SetupTest):
         self.assertEquals(response.status_code, 404)
 
     def test_confirm_reset_password_invalid(self):
-        response = self.client.post(
-            self.confirm_password_url,
-            {"new_password": "Test1234@", "confirm_password": "invalid password"},
-        )
+        self.data["confirm_password"] = "invalid confirm password"
+        response = self.client.post(self.confirm_password_url, self.data)
         self.assertEquals(response.status_code, 400)
