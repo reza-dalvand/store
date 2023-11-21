@@ -84,26 +84,26 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
 class ChangePasswordSerializer(serializers.ModelSerializer):
     """change old password"""
 
-    password = serializers.CharField(
+    new_password = serializers.CharField(
         write_only=True,
         required=True,
         validators=[
             RegexValidator(
-                regex="^(?=(.*\d){1})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}",
+                regex="^(?=(.*\d){2})(?=.*[a-zA-Z])(?=.*[!@#$%])[0-9a-zA-Z!@#$%]{8,}",
                 message="password must contain numbers, letters, simbols and length greeter than 8",
                 code="invalid change password",
             )
         ],
     )
-    password2 = serializers.CharField(write_only=True, required=True)
+    confirm_password = serializers.CharField(write_only=True, required=True)
     old_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ("old_password", "password", "password2")
+        fields = ("old_password", "new_password", "confirm_password")
 
     def validate(self, attrs):
-        if attrs["password"] != attrs["password2"]:
+        if attrs["new_password"] != attrs["confirm_password"]:
             raise serializers.ValidationError(
                 {"password": _("Password fields didn't match.")}
             )
@@ -114,7 +114,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         if not user.check_password(value):
             raise serializers.ValidationError(
-                {"old_password": _("Old password is not correct")}
+                {"old password": _("Old password is not correct")}
             )
         return value
 
@@ -124,7 +124,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"authorize": "You dont have permission for this user."}
             )
-        instance.set_password(validated_data["password"])
+        instance.set_password(validated_data["new_password"])
         instance.save()
         return instance
 
