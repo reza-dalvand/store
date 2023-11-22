@@ -18,7 +18,7 @@ class ProductViewSet(viewsets.ViewSet):
         )
         category = request.query_params.get("category")
         brand = request.query_params.get("brand")
-        """filter product by category or brand"""
+        # filter product by category or brand
         if category or brand:
             products = products.filter(
                 Q(brand__slug__exact=brand) | Q(category__slug__exact=category),

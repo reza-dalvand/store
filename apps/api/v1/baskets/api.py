@@ -12,7 +12,7 @@ from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
 
 
 class BasketViewSet(ModelViewSet):
-    """manage orders of user"""
+    # manage orders of user
 
     serializer_class = BasketSerializer
 
@@ -34,7 +34,7 @@ class BasketViewSet(ModelViewSet):
         product = serializer.validated_data["product"]
         product_count = serializer.validated_data["count"]
 
-        """check product exists in basket"""
+        # check product exists in basket
 
         product_in_basket = basket.details.filter(
             product=product, basket__user_id=request.user.id
@@ -44,7 +44,7 @@ class BasketViewSet(ModelViewSet):
             product_in_basket.save()
             return Response(status=status.HTTP_200_OK)
 
-        """put product to basket"""
+        # put product to basket#
         BasketDetail.objects.create(
             basket_id=basket.id,
             product=product,

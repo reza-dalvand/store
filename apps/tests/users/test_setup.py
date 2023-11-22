@@ -11,7 +11,7 @@ class SetupTest(APITestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()
-        """views url"""
+        # views url
         self.register_url = reverse("v1:users:register")
         self.login_url = reverse("v1:users:login")
         self.logout_url = reverse("v1:users:logout")
@@ -32,10 +32,12 @@ class SetupTest(APITestCase):
 
         self.user = User.objects.create_user(**self.credentials)
         self.user.save()
+
         self.token = Token.objects.create(user_id=self.credentials["id"])
+
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
-        """set user into every request"""
+        # set user into every request
         self.client.user = self.user
 
         return super().setUp()
@@ -45,4 +47,5 @@ class SetupTest(APITestCase):
 
     @classmethod
     def tearDownClass(cls):
+        print("Finish Tests")
         return super().tearDownClass()
