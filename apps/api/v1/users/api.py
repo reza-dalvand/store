@@ -96,7 +96,7 @@ class ResetPasswordApiView(APIView):
             send_mail_to_users(
                 _("change password"), f"click on link {callback_url}", [user.email]
             )
-            return Response(status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
@@ -118,5 +118,5 @@ class ConfirmPasswordView(APIView):
             user.set_password(new_password)
             user.uid = uuid.uuid4()
             user.save()
-            return Response(status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)

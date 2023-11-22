@@ -11,7 +11,7 @@ from apps.serializers import BasketSerializer, BasketDetailSerializer
 from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
 
 
-class BasketDetailViewSet(ModelViewSet):
+class BasketViewSet(ModelViewSet):
     """manage orders of user"""
 
     serializer_class = BasketSerializer
@@ -35,11 +35,14 @@ class BasketDetailViewSet(ModelViewSet):
         product_count = serializer.validated_data["count"]
 
         """check product exists in basket"""
-        product_in_basket = basket.details.filter(product=product).first()
+
+        product_in_basket = basket.details.filter(
+            product=product, basket__user_id=request.user.id
+        ).first()
         if product_in_basket:
             product_in_basket.count += product_count
             product_in_basket.save()
-            return Response(status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
 
         """put product to basket"""
         BasketDetail.objects.create(
@@ -47,14 +50,15 @@ class BasketDetailViewSet(ModelViewSet):
             product=product,
             count=product_count,
         )
-        return Response(status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)
 
     def destroy(self, request, *args, **kwargs):
         basket = self.get_queryset()
-        if kwargs.get("pk"):
+        product = basket.details.filter(id=kwargs.get("pk")).first()
+        if product:
             basket.details.filter(id=kwargs.get("pk")).delete()
-            return Response(status.HTTP_200_OK)
-        return Response(status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 amount = 1000  # Rial / Required
