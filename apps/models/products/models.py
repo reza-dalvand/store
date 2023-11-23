@@ -73,9 +73,6 @@ class Product(BaseModel):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("products:product_detail", args=[self.id])
-
 
 class ProductGallery(BaseModel):
     product = models.ForeignKey(

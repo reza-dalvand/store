@@ -1,6 +1,5 @@
 from .test_setup import SetupTest
 from ...models.contact.models import ContactUs
-from ...models.products.models import Product
 
 
 class ModelTest(SetupTest):

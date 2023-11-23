@@ -1,5 +1,5 @@
 from .test_setup import SetupTest
-from ...models.products.models import Product
+from apps.models.products.models import Product
 
 
 class ModelTest(SetupTest):
