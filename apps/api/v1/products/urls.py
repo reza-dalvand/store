@@ -5,8 +5,8 @@ from .api import ProductViewSet, CommentApiView
 app_name = "products"
 
 router = DefaultRouter()
-router.register("", ProductViewSet, basename="product-api")
+router.register("", ProductViewSet, basename="product")
 
 urlpatterns = [
-    path("comment/", CommentApiView.as_view(), name="comments")
+    path("comments/", CommentApiView.as_view(), name="comments")
 ] + router.urls

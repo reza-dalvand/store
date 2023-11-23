@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.models.products.models import Product, ProductComment
+from apps.models.products.models import Product
 from apps.serializers import ProductSerializer, CommentSerializer
 
 
@@ -26,18 +26,9 @@ class ProductViewSet(viewsets.ViewSet):
                 soft_deleted=False,
             )
         serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def create(self, validated_data):
-        product = Product.objects.get(id=validated_data["product_id"])
-        if not ProductComment.objects.filter(email=validated_data["email"]).exists():
-            comment = ProductComment.objects.create(product=product, **validated_data)
-            comment.save()
-            serializer = CommentSerializer(comment)
-            return Response(serializer.data, status.HTTP_201_CREATED)
-        return Response("Forbidden", status.HTTP_403_FORBIDDEN)
-
-    def retrieve(self, pk=None):
+    def retrieve(self, request, pk=None):
         queryset = Product.objects.filter(is_published=True, soft_deleted=False)
         product = get_object_or_404(queryset, pk=pk)
         serializer = ProductSerializer(product)

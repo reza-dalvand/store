@@ -1,4 +1,4 @@
-from apps.tests.users.test_setup import SetupTest
+from .test_setup import SetupTest
 
 
 class UrlTest(SetupTest):

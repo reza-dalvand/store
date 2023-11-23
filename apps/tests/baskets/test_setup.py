@@ -1,7 +1,5 @@
-from django.urls import reverse
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIRequestFactory
-
 from apps.models.baskets.models import Basket
 from apps.models.products.models import Product
 from apps.users.models import User
@@ -46,5 +44,5 @@ class SetupTest(APITestCase):
 
     @classmethod
     def tearDownClass(cls):
-        print("Finish Testing")
+        print("finished tests of basket app")
         return super().tearDownClass()

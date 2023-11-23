@@ -47,5 +47,5 @@ class SetupTest(APITestCase):
 
     @classmethod
     def tearDownClass(cls):
-        print("Finish Tests")
+        print("finished tests of users app")
         return super().tearDownClass()

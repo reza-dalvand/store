@@ -1,6 +1,6 @@
 from model_bakery import baker
 from apps.serializers import LoginSerializer, RegisterSerializer
-from apps.tests.users.test_setup import SetupTest
+from .test_setup import SetupTest
 from apps.users.models import User
 
 

@@ -1,5 +1,5 @@
 from django.urls import reverse
-from apps.tests.baskets.test_setup import SetupTest
+from .test_setup import SetupTest
 
 
 class BasketTest(SetupTest):
