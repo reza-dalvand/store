@@ -31,4 +31,4 @@ class HomeSerializer(serializers.Serializer):
     categories = CategorySerializer(many=True)
     brands = BrandSerializer(many=True)
     products = ProductSerializer(many=True)
-    slides = ProductSerializer(many=True)
+    slides = SliderSerializer(many=True)
