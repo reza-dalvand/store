@@ -17,4 +17,5 @@ translate:
 run-tests:
 	#python manage.py test --pattern="test_*.py" apps/tests/users --verbosity=1
 	#python manage.py test --pattern="test_*.py" apps/tests/baskets --verbosity=1
-	python manage.py test --pattern="test_*.py" apps/tests/product --verbosity=1
+	#python manage.py test --pattern="test_*.py" apps/tests/product --verbosity=1
+	python manage.py test --pattern="test_*.py" apps/tests/contact --verbosity=1
