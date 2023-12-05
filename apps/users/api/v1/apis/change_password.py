@@ -1,17 +1,20 @@
+import uuid
+
 from django.utils.translation import gettext_lazy as _
+
+from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
-from scripts.mail import send_mail_to_users
-from rest_framework import status, generics
+
 from apps.users.models import User
 from apps.users.serializers import (
     ChangePasswordSerializer,
-    ResetPasswordSerializer,
     ConfirmPasswordSerializer,
+    ResetPasswordSerializer,
 )
-import uuid
+from scripts.mail import send_mail_to_users
 
 
 class ChangePasswordApiView(generics.UpdateAPIView):

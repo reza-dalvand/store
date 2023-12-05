@@ -1,7 +1,9 @@
 import uuid
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from utils.fields.current_user import CurrentUserField
 
 user_model = get_user_model()

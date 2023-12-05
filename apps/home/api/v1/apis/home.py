@@ -2,9 +2,10 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from apps.home.models import MainSlider
-from apps.products.models import ProductCategory, Product, ProductBrand
 from apps.home.serializers import HomeSerializer
+from apps.products.models import Product, ProductBrand, ProductCategory
 
 
 class Home(APIView):

@@ -1,14 +1,14 @@
 from django.contrib.auth.models import update_last_login
 from django.utils.translation import gettext_lazy as _
+
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
-from rest_framework import status
-from apps.users.serializers import (
-    LoginSerializer,
-)
+
+from apps.users.serializers import LoginSerializer
 
 
 class LoginAPIView(APIView):

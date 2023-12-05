@@ -1,6 +1,10 @@
 from django.urls import path
-from .apis.change_password import ResetPasswordApiView
-from .apis.change_password import ChangePasswordApiView, ConfirmPasswordView
+
+from .apis.change_password import (
+    ChangePasswordApiView,
+    ConfirmPasswordView,
+    ResetPasswordApiView,
+)
 from .apis.login import LoginAPIView
 from .apis.logout import LogoutAPIView
 from .apis.profile import UserProfileAPIView

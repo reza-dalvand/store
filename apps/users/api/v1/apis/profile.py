@@ -1,5 +1,6 @@
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import status, generics
+
 from apps.users.models import User
 from apps.users.serializers import UpdateProfileSerializer
 

@@ -1,8 +1,9 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+from apps.products.models import Product
 from apps.users.models import User
 from common.models import BaseModel
-from apps.products.models import Product
-from django.utils.translation import gettext_lazy as _
 
 
 class Basket(BaseModel):

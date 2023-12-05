@@ -1,8 +1,10 @@
-from django.db.models import Q
-from rest_framework import serializers
-from apps.users.models import User
-from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
+
+from rest_framework import serializers
+
+from apps.users.models import User
 from apps.users.regex import PASSWORD_REGEX
 
 PASSWORD_HELP_TEXT = (

@@ -1,5 +1,6 @@
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APITestCase, APIRequestFactory
+from rest_framework.test import APIRequestFactory, APITestCase
+
 from apps.models.baskets.models import Basket
 from apps.models.products.models import Product
 from apps.users.models import User

@@ -1,10 +1,11 @@
 from django.contrib import admin
+
 from .models import (
     Product,
-    ProductCategory,
     ProductBrand,
-    ProductGallery,
+    ProductCategory,
     ProductComment,
+    ProductGallery,
 )
 
 # Register your models here.

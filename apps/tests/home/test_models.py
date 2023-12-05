@@ -1,5 +1,6 @@
-from .test_setup import SetupTest
 from apps.models.home.models import MainSlider
+
+from .test_setup import SetupTest
 
 
 #

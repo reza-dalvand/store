@@ -1,6 +1,7 @@
 from rest_framework import serializers
+
 from apps.home.models import MainSlider
-from apps.products.models import ProductBrand, Product, ProductCategory
+from apps.products.models import Product, ProductBrand, ProductCategory
 
 
 class CategorySerializer(serializers.ModelSerializer):
