@@ -1,3 +1,9 @@
+# Don't run pre-commit on files under third-party/
+exclude: "^\
+  (third-party/.*)\
+  .*migrations\/.*
+  "
+
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.3.0
