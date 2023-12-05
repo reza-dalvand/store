@@ -1,0 +1,280 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-18 10:01+0330\n"
+"PO-Revision-Date: 2023-11-16 09:30+0000\n"
+"Last-Translator:   <a@a.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.9\n"
+
+#: apps/api/v1/users/api.py:104
+msgid "change password"
+msgstr ""
+
+#: apps/core/models.py:11
+msgid "UUID"
+msgstr "شناسه یکتا"
+
+#: apps/core/models.py:16
+msgid "Created by"
+msgstr "توسط"
+
+#: apps/core/models.py:24
+msgid "Created at"
+msgstr "در تاریخ"
+
+#: apps/core/models.py:29
+msgid "Updated by"
+msgstr "بروزرسانی توسط"
+
+#: apps/core/models.py:37
+msgid "Updated at"
+msgstr "بروز رسانی در"
+
+#: apps/models/baskets/models.py:15
+msgid "Basket"
+msgstr "سبد خرید"
+
+#: apps/models/baskets/models.py:16
+msgid "Baskets"
+msgstr "سبد های خرید"
+
+#: apps/models/baskets/models.py:32
+msgid "Basket Detail"
+msgstr "جزییات سبد خرید"
+
+#: apps/models/baskets/models.py:33
+msgid "Basket Details"
+msgstr "جزییات سبد های خرید"
+
+#: apps/models/contact/models.py:8
+msgid "fullname"
+msgstr "نام و نام خانوادگی"
+
+#: apps/models/contact/models.py:9 apps/models/site/models.py:9
+#: apps/users/models.py:15
+msgid "email"
+msgstr "ایمیل"
+
+#: apps/models/contact/models.py:10
+msgid "subject"
+msgstr "موضوع"
+
+#: apps/models/contact/models.py:11 apps/models/products/models.py:104
+msgid "message"
+msgstr "متن پیام"
+
+#: apps/models/contact/models.py:12
+msgid "date"
+msgstr "تاریخ"
+
+#: apps/models/contact/models.py:13
+msgid "read / unread"
+msgstr "خوانده شده / نشده"
+
+#: apps/models/contact/models.py:16 apps/models/contact/models.py:17
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: apps/models/home/models.py:7 apps/models/site/models.py:8
+msgid "title"
+msgstr "عنوان"
+
+#: apps/models/home/models.py:8 apps/models/products/models.py:10
+#: apps/models/products/models.py:29 apps/models/products/models.py:59
+msgid "slug"
+msgstr "عنوان در url"
+
+#: apps/models/home/models.py:9
+msgid "desc"
+msgstr "توضیحات"
+
+#: apps/models/home/models.py:10 apps/models/products/models.py:60
+#: apps/models/products/models.py:88
+msgid "image"
+msgstr "تصویر"
+
+#: apps/models/home/models.py:14
+msgid "Main Slider"
+msgstr "اسلایدر اصلی"
+
+#: apps/models/home/models.py:15
+msgid "Main Sliders"
+msgstr "اسلایدر ها"
+
+#: apps/models/products/models.py:9 apps/models/products/models.py:28
+#: apps/models/products/models.py:58
+msgid "name"
+msgstr "نام"
+
+#: apps/models/products/models.py:13
+msgid "Brand"
+msgstr "برند"
+
+#: apps/models/products/models.py:14
+msgid "Brands"
+msgstr "برند ها"
+
+#: apps/models/products/models.py:32
+msgid "Category"
+msgstr "دسته بندی"
+
+#: apps/models/products/models.py:33
+msgid "Categories"
+msgstr "دسته بندی ها"
+
+#: apps/models/products/models.py:61 apps/models/site/models.py:10
+msgid "short description"
+msgstr "توضیحات کوتاه"
+
+#: apps/models/products/models.py:62
+msgid "long description"
+msgstr "توضیحات"
+
+#: apps/models/products/models.py:63
+msgid "is products published"
+msgstr "انتشار شده / نشده"
+
+#: apps/models/products/models.py:64
+msgid "is products soft deleted"
+msgstr "حذف شده / نشده"
+
+#: apps/models/products/models.py:65
+msgid "price"
+msgstr "قیمت"
+
+#: apps/models/products/models.py:70
+msgid "Product"
+msgstr "محصول"
+
+#: apps/models/products/models.py:71
+msgid "Products"
+msgstr "محصولات"
+
+#: apps/models/products/models.py:91
+msgid "Gallery"
+msgstr "گالری"
+
+#: apps/models/products/models.py:92
+msgid "Galleries"
+msgstr "گالری ها"
+
+#: apps/models/products/models.py:102
+msgid "full_name"
+msgstr "نام و نام خانوادگی"
+
+#: apps/models/products/models.py:103
+msgid "email address"
+msgstr "ایمیل"
+
+#: apps/models/products/models.py:108
+msgid "Comment"
+msgstr "نظر"
+
+#: apps/models/products/models.py:109
+msgid "Comments"
+msgstr "نظرات"
+
+#: apps/models/site/models.py:11
+msgid "description"
+msgstr "توضیحات"
+
+#: apps/models/site/models.py:12
+msgid "address"
+msgstr "آدرس"
+
+#: apps/models/site/models.py:13
+msgid "mobile"
+msgstr "موبایل"
+
+#: apps/models/site/models.py:15 apps/users/models.py:20
+msgid "phone number"
+msgstr "شماره تماس"
+
+#: apps/models/site/models.py:17
+msgid "is active"
+msgstr "فعال / غیر فعال"
+
+#: apps/models/site/models.py:20
+msgid "تنظیمات سایت"
+msgstr "تنظیمات سایت"
+
+#: apps/models/site/models.py:21
+msgid "Site Settings"
+msgstr "تنظیمات سایت"
+
+#: apps/users/models.py:12
+msgid "username"
+msgstr "نام کاربری"
+
+#: apps/users/models.py:18
+msgid "avatar"
+msgstr "تصویر کاربر"
+
+#: apps/users/models.py:26
+msgid "uid"
+msgstr ""
+
+#: apps/users/models.py:29
+msgid "کاربر"
+msgstr "user"
+
+#: apps/users/models.py:30
+msgid "کاربران"
+msgstr "users"
+
+#: apps/users/serializers.py:32
+msgid "passwords did not match"
+msgstr "رمز عبور با تکرار آن مطابقت ندارد"
+
+#: apps/users/serializers.py:94
+msgid "Password fields didn't match."
+msgstr "رمز عبور با تکرار آن مطابقت ندارد"
+
+#: apps/users/serializers.py:103
+msgid "Old password is not correct"
+msgstr "پسورد قدیمی نامعتبر"
+
+#: config/settings/base.py:126
+msgid "فارسی"
+msgstr "فارسی"
+
+#: config/settings/base.py:127
+msgid "English"
+msgstr "انگلیسی"
+
+#~ msgid "this username is already in exists"
+#~ msgstr "این نام کاربری وجود دارد"
+
+#~ msgid "this field is required"
+#~ msgstr "این فیلد الزامیست"
+
+#~ msgid "this email is already in exists"
+#~ msgstr "این ایمیل وجود دارد"
+
+#~ msgid "token"
+#~ msgstr "توکن"
+
+#~ msgid "password must be at least 4 characters"
+#~ msgstr "تعداد کاراکتر های پسورد حداقل 4 حرف"
+
+#~ msgid "Settings"
+#~ msgstr "تنظیمات سایت"
+
+#~ msgid "Site Setting"
+#~ msgstr "تنظیمات سایت"
+
+#~ msgid "عنوان"
+#~ msgstr "title"
