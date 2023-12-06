@@ -13,17 +13,13 @@ class ProductViewSet(viewsets.ViewSet):
     permission_classes = [AllowAny]
 
     def list(self, request):
-        products = Product.objects.select_related("category", "brand").filter(
-            is_published=True, soft_deleted=False
-        )
+        products = Product.objects.select_related("category", "brand").all()
         category = request.query_params.get("category")
         brand = request.query_params.get("brand")
         # filter product by category or brand
         if category or brand:
             products = products.filter(
                 Q(brand__slug__exact=brand) | Q(category__slug__exact=category),
-                is_published=True,
-                soft_deleted=False,
             )
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

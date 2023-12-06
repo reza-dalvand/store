@@ -2,7 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-from common.models import BaseModel
+from apps.common.models import BaseModel
+from apps.products.managers import AdditionalQueryset, ProductManager
 
 
 class ProductBrand(BaseModel):
@@ -63,6 +64,10 @@ class Product(BaseModel):
     price = models.IntegerField(_("price"))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # change default manager
+    # chainable queries
+    objects = ProductManager.from_queryset(AdditionalQueryset)()
 
     class Meta:
         verbose_name = _("Product")

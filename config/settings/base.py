@@ -10,20 +10,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "apps.core",
-    "apps.users",
-    "apps.products",
-    "apps.baskets",
-    "apps.contact",
-    "apps.site",
-    "apps.home",
+THIRD_PARTY_APPS = [
     "jalali_date",
     "rosetta",
     "rest_framework_swagger",
@@ -35,6 +22,27 @@ INSTALLED_APPS = [
     "django_render_partial",
     "sorl.thumbnail",
     "debug_toolbar",
+]
+LOCAL_APPS = [
+    "apps.core",
+    "apps.users",
+    "apps.products",
+    "apps.baskets",
+    "apps.contact",
+    "apps.site",
+    "apps.home",
+    "apps.common",
+]
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    *THIRD_PARTY_APPS,
+    *LOCAL_APPS,
 ]
 
 MIDDLEWARE = [
