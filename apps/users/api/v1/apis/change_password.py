@@ -17,14 +17,14 @@ from apps.users.serializers import (
 from scripts.mail import send_mail_to_users
 
 
-class ChangePasswordApiView(generics.UpdateAPIView):
+class ChangePasswordApi(generics.UpdateAPIView):
     """change old password"""
 
     queryset = User.objects.all()
     serializer_class = ChangePasswordSerializer
 
 
-class ResetPasswordApiView(APIView):
+class ResetPasswordApi(APIView):
     """send reset password email"""
 
     permission_classes = [AllowAny]
@@ -37,7 +37,7 @@ class ResetPasswordApiView(APIView):
         if user:
             api_version = request.version
 
-            "" "diagnosis user with uid and api version" ""
+            """diagnosis user with uid and api version"""
             callback_url = (
                 request.build_absolute_uri(
                     reverse(f"{api_version}:users:confirm-password")
@@ -51,7 +51,7 @@ class ResetPasswordApiView(APIView):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-class ConfirmPasswordView(APIView):
+class ConfirmPasswordApi(APIView):
     """confirm reset password"""
 
     permission_classes = [AllowAny]

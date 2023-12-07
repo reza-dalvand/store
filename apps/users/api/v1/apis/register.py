@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from apps.users.serializers import RegisterSerializer
 
 
-class RegisterAPIView(generics.GenericAPIView):
+class RegisterApi(generics.GenericAPIView):
     """Registers user"""
 
     permission_classes = [AllowAny]

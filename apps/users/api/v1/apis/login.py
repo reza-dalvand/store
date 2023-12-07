@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 from apps.users.serializers import LoginSerializer
 
 
-class LoginAPIView(APIView):
+class LoginApi(APIView):
     """login user"""
 
     permission_classes = [AllowAny]

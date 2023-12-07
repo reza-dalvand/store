@@ -5,7 +5,7 @@ from apps.users.models import User
 from apps.users.serializers import UpdateProfileSerializer
 
 
-class UserProfileAPIView(generics.UpdateAPIView):
+class UserProfileApi(generics.UpdateAPIView):
     """Update User Profile"""
 
     serializer_class = UpdateProfileSerializer
