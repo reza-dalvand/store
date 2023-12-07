@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import BaseModel
-from apps.products.managers import AdditionalQueryset, ProductManager
+from apps.products.managers import ProductManager, QuerysetManager
 
 
 class ProductBrand(BaseModel):
@@ -67,7 +67,7 @@ class Product(BaseModel):
 
     # change default manager
     # chainable queries
-    objects = ProductManager.from_queryset(AdditionalQueryset)()
+    objects = ProductManager.from_queryset(QuerysetManager)()
 
     class Meta:
         verbose_name = _("Product")

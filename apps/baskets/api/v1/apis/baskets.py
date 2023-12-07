@@ -13,7 +13,7 @@ from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
 
 
 class BasketViewSet(ModelViewSet):
-    # manage orders of user
+    """manage orders of user"""
 
     serializer_class = BasketSerializer
 
