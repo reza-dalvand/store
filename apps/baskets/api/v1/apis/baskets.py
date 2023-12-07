@@ -7,57 +7,48 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from apps.baskets.models import Basket, BasketDetail
+from apps.baskets.selectors import (
+    change_or_add_product_in_user_basket,
+    get_or_create_basket,
+    removed_product_in_user_basket,
+)
 from apps.baskets.serializers import BasketDetailSerializer, BasketSerializer
 from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
 
 
 class BasketViewSet(ModelViewSet):
-    """manage orders of user"""
+    """manage order of users"""
 
     serializer_class = BasketSerializer
 
     def get_queryset(self):
-        basket, created = Basket.objects.prefetch_related("details").get_or_create(
-            user_id=self.request.user.id, is_open=True
-        )
-        return basket
+        return get_or_create_basket(self.request.user.id)
 
-    def list(self, request, *args, **kwargs):
-        basket = self.get_queryset()
+    def retrieve(self, request, *args, **kwargs):
+        basket = self.queryset
         serializer = BasketSerializer(basket)
         return Response(serializer.data, status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        basket = self.get_queryset()
+        basket = self.queryset
         serializer = BasketDetailSerializer(data=request.POST)
         serializer.is_valid(raise_exception=True)
-        product = serializer.validated_data["product"]
+        product_id = serializer.validated_data["product"]
         product_count = serializer.validated_data["count"]
 
-        # check product exists in basket
-
-        product_in_basket = basket.details.filter(
-            product=product, basket__user_id=request.user.id
-        ).first()
-        if product_in_basket:
-            product_in_basket.count += product_count
-            product_in_basket.save()
-            return Response(status=status.HTTP_200_OK)
-
-        # put product to basket#
-        BasketDetail.objects.create(
-            basket_id=basket.id,
-            product=product,
-            count=product_count,
+        # if product exists change that else create new product in basket
+        is_change = change_or_add_product_in_user_basket(
+            basket.id, product_id, product_count
         )
+        if is_change:
+            return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_201_CREATED)
 
     def destroy(self, request, *args, **kwargs):
-        basket = self.get_queryset()
-        product = basket.details.filter(id=kwargs.get("pk")).first()
-        if product:
-            basket.details.filter(id=kwargs.get("pk")).delete()
+        basket = self.queryset
+        product_id = kwargs.get("product_id")
+        is_delete = removed_product_in_user_basket(basket, product_id)
+        if is_delete:
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
