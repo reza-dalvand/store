@@ -9,7 +9,7 @@ def get_or_create_basket(user_id) -> Basket:
 
 
 def change_or_add_product_in_user_basket(basket, product_id, product_count) -> bool:
-    # if product is already existing
+    # if product is already existing in user basket
     product = basket.details.filter(product_id=product_id, basket_id=basket).first()
     if product:
         product.count += product_count
