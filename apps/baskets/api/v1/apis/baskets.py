@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from apps.baskets.selectors import (
     change_or_add_product_in_user_basket,
     get_or_create_basket,
-    removed_product_in_user_basket,
+    remove_product_in_user_basket,
 )
 from apps.baskets.serializers import BasketDetailSerializer, BasketSerializer
 from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
@@ -47,7 +47,7 @@ class BasketViewSet(ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         basket = self.queryset
         product_id = kwargs.get("product_id")
-        is_delete = removed_product_in_user_basket(basket, product_id)
+        is_delete = remove_product_in_user_basket(basket, product_id)
         if is_delete:
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_404_NOT_FOUND)

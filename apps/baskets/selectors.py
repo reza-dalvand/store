@@ -23,7 +23,7 @@ def change_or_add_product_in_user_basket(basket, product_id, product_count) -> b
     return False
 
 
-def removed_product_in_user_basket(basket, product_id) -> bool:
+def remove_product_in_user_basket(basket, product_id) -> bool:
     product = basket.details.filter(id=product_id).first()
     if product:
         product.delete()
