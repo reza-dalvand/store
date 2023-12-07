@@ -1,6 +1,10 @@
 from django.urls import path
 
-from .apis.change_password import ChangePasswordApi, ConfirmPasswApi, ResetPasswordApi
+from .apis.change_password import (
+    ChangePasswordApi,
+    ConfirmPasswordApi,
+    ResetPasswordApi,
+)
 from .apis.login import LoginApi
 from .apis.logout import LogoutApi
 from .apis.profile import UserProfileApi
@@ -19,7 +23,7 @@ urlpatterns = [
     path("reset-password/", ResetPasswordApi.as_view(), name="reset-password"),
     path(
         "reset-password/confirm/",
-        ConfirmPasswApi.as_view(),
+        ConfirmPasswordApi.as_view(),
         name="confirm-password",
     ),
 ]

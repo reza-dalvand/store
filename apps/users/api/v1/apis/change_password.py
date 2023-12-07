@@ -64,7 +64,7 @@ class ConfirmPasswordApi(APIView):
         confirm_password = serializer.validated_data["confirm_password"]
         if new_password != confirm_password:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        user: User = User.objects.filter(uid__iexact=user_uid).first()
+        user = User.objects.filter(uid__iexact=user_uid).first()
         if user:
             user.set_password(new_password)
             user.uid = uuid.uuid4()

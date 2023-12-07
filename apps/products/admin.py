@@ -8,9 +8,16 @@ from .models import (
     ProductGallery,
 )
 
-# Register your models here.
-admin.site.register(Product)
+admin.site.register(ProductGallery)
 admin.site.register(ProductCategory)
 admin.site.register(ProductBrand)
-admin.site.register(ProductGallery)
-admin.site.register(ProductComment)
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("name", "is_published", "soft_deleted", "price")
+
+
+@admin.register(ProductComment)
+class ProductCommentAdmin(admin.ModelAdmin):
+    list_display = ("full_name", "email", "message")
