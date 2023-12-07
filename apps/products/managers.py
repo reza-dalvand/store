@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class AdditionalQueryset(models.QuerySet):
+class QuerysetManager(models.QuerySet):
     """create new queryset and chainable queries"""
 
     def active_products(self, is_published=True, soft_deleted=False):
