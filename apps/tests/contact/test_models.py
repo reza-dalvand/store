@@ -1,4 +1,5 @@
-from ...models.contact.models import ContactUs
+from apps.contact.models import ContactUs
+
 from .test_setup import SetupTest
 
 

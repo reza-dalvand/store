@@ -1,4 +1,4 @@
-from apps.models.home.models import MainSlider
+from apps.home.models import MainSlider
 
 from .test_setup import SetupTest
 

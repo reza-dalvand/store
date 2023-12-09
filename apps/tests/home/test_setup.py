@@ -1,7 +1,7 @@
 from model_bakery import baker
 from rest_framework.test import APITestCase
 
-from apps.models.home.models import MainSlider
+from apps.home.models import MainSlider
 
 
 class SetupTest(APITestCase):

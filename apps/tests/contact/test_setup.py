@@ -1,7 +1,7 @@
 from model_bakery import baker
 from rest_framework.test import APITestCase
 
-from apps.models.contact.models import ContactUs
+from apps.contact.models import ContactUs
 
 
 class SetupTest(APITestCase):

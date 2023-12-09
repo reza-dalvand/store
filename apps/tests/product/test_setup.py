@@ -2,7 +2,7 @@ from model_bakery import baker
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIRequestFactory, APITestCase
 
-from apps.models.products.models import Product, ProductBrand, ProductCategory
+from apps.products.models import Product, ProductBrand, ProductCategory
 from apps.users.models import User
 
 

@@ -1,4 +1,4 @@
-from apps.models.products.models import Product
+from apps.products.models import Product
 
 from .test_setup import SetupTest
 
