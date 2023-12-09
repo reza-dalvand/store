@@ -13,7 +13,7 @@ from apps.baskets.selectors import (
     remove_product_in_user_basket,
 )
 from apps.baskets.serializers import BasketDetailSerializer, BasketSerializer
-from config.settings.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
+from config.django.base import ZP_API_REQUEST, ZP_API_STARTPAY, ZP_API_VERIFY
 
 
 class BasketViewSet(ModelViewSet):

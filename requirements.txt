@@ -1,1 +1,4 @@
 -r requirements/production.txt
+
+python-dotenv~=1.0.0
+environ~=1.0
