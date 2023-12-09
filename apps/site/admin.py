@@ -1,6 +1,9 @@
+# Register your models here.
 from django.contrib import admin
 
 from .models import SiteSetting
 
-# Register your models here.
-admin.site.register(SiteSetting)
+
+@admin.register(SiteSetting)
+class SiteSettingAdmin(admin.ModelAdmin):
+    list_display = ("email", "is_active")

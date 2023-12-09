@@ -6,10 +6,8 @@ from .models import Basket, BasketDetail
 @admin.register(Basket)
 class BasketAdmin(admin.ModelAdmin):
     list_display = ("user", "is_open")
-    fields = ("user", "is_open")
 
 
 @admin.register(BasketDetail)
 class BasketAdmin(admin.ModelAdmin):
     list_display = ("product", "basket", "final_price", "count")
-    fields = ("product", "basket", "final_price", "count")
