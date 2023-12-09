@@ -21,16 +21,13 @@ class BasketViewSet(ModelViewSet):
 
     serializer_class = BasketSerializer
 
-    def get_queryset(self):
-        return get_or_create_basket(self.request.user.id)
-
     def retrieve(self, request, *args, **kwargs):
-        basket = self.queryset
+        basket = get_or_create_basket(self.request.user.id)
         serializer = BasketSerializer(basket)
         return Response(serializer.data, status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        basket = self.queryset
+        basket = get_or_create_basket(self.request.user.id)
         serializer = BasketDetailSerializer(data=request.POST)
         serializer.is_valid(raise_exception=True)
         product_id = serializer.validated_data["product"]
@@ -38,14 +35,14 @@ class BasketViewSet(ModelViewSet):
 
         # if product exists change that else create new product in basket
         is_changed = change_or_add_product_in_user_basket(
-            basket.id, product_id, product_count
+            basket, product_id, product_count
         )
         if is_changed:
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_201_CREATED)
 
     def destroy(self, request, *args, **kwargs):
-        basket = self.queryset
+        basket = get_or_create_basket(self.request.user.id)
         product_id = kwargs.get("product_id")
         is_delete = remove_product_in_user_basket(basket, product_id)
         if is_delete:

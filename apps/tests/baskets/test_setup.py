@@ -1,7 +1,8 @@
+from model_bakery import baker
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIRequestFactory, APITestCase
 
-from apps.baskets.models import Basket
+from apps.baskets.models import Basket, BasketDetail
 from apps.products.models import Product
 from apps.users.models import User
 
@@ -9,32 +10,25 @@ from apps.users.models import User
 class SetupTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
-        product_info = {
-            "name": "test",
-            "slug": "test",
-            "is_published": True,
-            "price": 12345,
-        }
-        Product.objects.create(**product_info).save()
-        Basket.objects.create(user_id=1, is_open=True).save()
+        baker.make(Product)
+        baker.make(User)
+        user = User.objects.first()
+        Token.objects.create(user=user)
+        Basket.objects.create(user_id=user.id, is_open=True)
         return super().setUpTestData
 
     def setUp(self):
         self.factory = APIRequestFactory()
 
-        self.credentials = {
-            "id": "1",
-            "email": "test@test.com",
-            "username": "test",
-            "password": "1234",
-        }
-        self.user = User.objects.create_user(**self.credentials)
-        self.user.save()
-
-        self.token = Token.objects.create(user_id=self.credentials["id"])
+        self.token = Token.objects.first()
+        self.user = User.objects.first()
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
-        self.basket = Basket.objects.get(id=1)
-        self.basket.details.create(product_id=1, basket_id=1, count=2).save()
+        self.basket = Basket.objects.first()
+        self.product = Product.objects.first()
+
+        self.basket.details.create(
+            product_id=self.product.id, basket_id=self.basket.id
+        ).save()
 
         # set user in every request
         self.client.user = self.user
