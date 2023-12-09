@@ -39,6 +39,15 @@ class RegisterTest(SetupTest):
 
 
 class LoginTest(SetupTest):
+    def setUp(self):
+        self.user = baker.make(User)
+        self.user.save()
+        self.credentials_register = {
+            "email": self.user.email,
+            "password": self.user.password,
+        }
+        return super().setUp()
+
     def test_login(self):
         response = self.client.post(self.login_url, self.credentials)
         self.assertEquals(response.status_code, 200)

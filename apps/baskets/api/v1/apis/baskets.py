@@ -37,10 +37,10 @@ class BasketViewSet(ModelViewSet):
         product_count = serializer.validated_data["count"]
 
         # if product exists change that else create new product in basket
-        is_change = change_or_add_product_in_user_basket(
+        is_changed = change_or_add_product_in_user_basket(
             basket.id, product_id, product_count
         )
-        if is_change:
+        if is_changed:
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_201_CREATED)
 
