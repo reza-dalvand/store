@@ -22,6 +22,7 @@ THIRD_PARTY_APPS = [
     "django_render_partial",
     "sorl.thumbnail",
     "debug_toolbar",
+    "django_celery_results",
 ]
 LOCAL_APPS = [
     "apps.core",

@@ -1,9 +1,9 @@
 from time import sleep
 
-from celery import shared_task
+from config.celery import app
 
 
-@shared_task
+@app.task()
 def notify_customers():
-    print("how are fucking cus")
     sleep(10)
+    print("example test")
