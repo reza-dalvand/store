@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from config.settings import *
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
