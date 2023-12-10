@@ -2,3 +2,5 @@
 
 python-dotenv~=1.0.0
 environ~=1.0
+
+celery~=5.3.6

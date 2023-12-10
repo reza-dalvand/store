@@ -1,12 +1,12 @@
-import os
 from pathlib import Path
 
 import environ
 
 env = environ.Env()
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+env.read_env(BASE_DIR / ".env")
 
-ARVAN_STORAGE_URL = os.getenv("ARVAN_STORAGE_URL")
+ARVAN_STORAGE_URL = env("ARVAN_STORAGE_URL")
 # Arvan Cloud Storage
 
 if env("USE_ARVAN_BUCKET", cast=bool, default=False):
