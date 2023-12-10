@@ -7,6 +7,7 @@ include("base.py")
 include("secret.py")
 include("../settings/aws.py")
 include("../settings/email.py")
+include("../settings/celery.py")
 
 # Include the environment-specific settings file based on the environment
 if "development" in env("DJANGO_ENV"):
