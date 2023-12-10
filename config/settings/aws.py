@@ -1,10 +1,8 @@
 from pathlib import Path
 
-import environ
+from config.env import env
 
-env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-env.read_env(BASE_DIR / ".env")
 
 ARVAN_STORAGE_URL = env("ARVAN_STORAGE_URL")
 # Arvan Cloud Storage
