@@ -62,8 +62,6 @@ class Product(BaseModel):
     is_published = models.BooleanField(_("is products published"), default=False)
     soft_deleted = models.BooleanField(_("is products soft deleted"), default=False)
     price = models.IntegerField(_("price"))
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     # change default manager
     # chainable queries

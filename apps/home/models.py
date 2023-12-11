@@ -8,8 +8,7 @@ class MainSlider(BaseModel):
     title = models.CharField(_("title"), max_length=255)
     slug = models.SlugField(_("slug"), max_length=255, null=True, blank=True)
     description = models.TextField(_("desc"), null=True, blank=True)
-    image = models.ImageField(_("image"), upload_to="slider")
-    created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(_("image"), upload_to="main-slider")
 
     class Meta:
         verbose_name = _("Main Slider")
