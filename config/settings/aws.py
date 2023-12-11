@@ -26,7 +26,7 @@ if env("USE_ARVAN_BUCKET", cast=bool, default=False):
     MEDIA_URL = f"https://{AWS_S3_ENDPOINT_URL}/media/"
     STATICFILES_STORAGE = env("DEFAULT_FILE_STORAGE", cast=str)
 
-    # Addition Option:
+    # Addition Options:
     # AWS_QUERYSTRING_EXPIRE = 3600
     # AWS_S3_MAX_MEMORY_SIZE = 0
     # AWS_S3_URL_PROTOCOL = "https:"
