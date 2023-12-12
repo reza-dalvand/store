@@ -13,7 +13,7 @@ class ProductViewSet(viewsets.ViewSet):
     def list(self, request):
         category = request.query_params.get("category")
         brand = request.query_params.get("brand")
-        # get active products or filter by category or brand
+        # get active products or filtered by category or brand
         qs = get_active_products(category, brand)
         serializer = ProductSerializer(qs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
