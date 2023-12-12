@@ -20,7 +20,7 @@ if env("USE_ARVAN_BUCKET", cast=bool, default=False):
     AWS_STORAGE_DEFAULT_ACL = env("ARVAN_STORAGE_DEFAULT_ACL", cast=str)
     AWS_DEFAULT_ACL = env("ARVAN_STORAGE_DEFAULT_ACL", cast=str)
 
-    """allowed static files in specific folder on arvan cloud"""
+    """allowed store static files in specific folder on arvan cloud"""
     AWS_LOCATION = "static"
     STATIC_URL = f"https://{AWS_S3_ENDPOINT_URL}/static/"
     MEDIA_URL = f"https://{AWS_S3_ENDPOINT_URL}/media/"
