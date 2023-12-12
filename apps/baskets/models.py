@@ -24,8 +24,8 @@ class BasketDetail(BaseModel):
         Product, related_name="products", on_delete=models.CASCADE
     )
     basket = models.ForeignKey(Basket, related_name="details", on_delete=models.CASCADE)
-    final_price = models.IntegerField(null=True, blank=True)
-    count = models.IntegerField(default=1)
+    final_price = models.PositiveIntegerField(null=True, blank=True)
+    count = models.PositiveSmallIntegerField(default=1)
 
     class Meta:
         verbose_name = _("Basket Detail")

@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import BaseModel
+from apps.common.validators import validate_mail
 from apps.products.managers import ProductManager, QuerysetManager
 
 
@@ -61,10 +62,9 @@ class Product(BaseModel):
     long_desc = models.TextField(_("long description"), null=True, blank=True)
     is_published = models.BooleanField(_("is products published"), default=False)
     soft_deleted = models.BooleanField(_("is products soft deleted"), default=False)
-    price = models.IntegerField(_("price"))
+    price = models.PositiveIntegerField(_("price"))
 
-    # change default manager
-    # chainable queries
+    # change default manager with chainable queries
     objects = ProductManager.from_queryset(QuerysetManager)()
 
     class Meta:
@@ -93,14 +93,13 @@ class ProductGallery(BaseModel):
         return self.product.name
 
 
-class ProductComment(models.Model):
+class ProductComment(BaseModel):
     product = models.ForeignKey(
         Product, related_name="comments", on_delete=models.CASCADE
     )
     full_name = models.CharField(_("full_name"), max_length=200)
-    email = models.EmailField(_("email address"))
+    email = models.EmailField(_("email address"), validators=[validate_mail])
     message = models.TextField(_("message"))
-    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("Comment")

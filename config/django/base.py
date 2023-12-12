@@ -25,14 +25,12 @@ THIRD_PARTY_APPS = [
     "django_celery_results",
 ]
 LOCAL_APPS = [
-    "apps.core",
     "apps.users",
     "apps.products",
     "apps.baskets",
     "apps.contact",
     "apps.site",
     "apps.home",
-    "apps.common",
 ]
 
 INSTALLED_APPS = [
