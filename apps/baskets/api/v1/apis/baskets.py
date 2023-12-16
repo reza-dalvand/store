@@ -20,6 +20,7 @@ class BasketViewSet(ModelViewSet):
     """manage order of users"""
 
     serializer_class = BasketSerializer
+    # renderer_classes = [CustomAesRenderer]
 
     def retrieve(self, request, *args, **kwargs):
         basket = get_or_create_basket(self.request.user.id)

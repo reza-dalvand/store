@@ -19,6 +19,7 @@ redis = "^5.0.1"
 django-storages = "^1.14.2"
 boto3 = "^1.33.11"
 django-celery-results = "^2.5.1"
+pycryptodome = "^3.19.0"
 
 
 [tool.poetry.group.dev.dependencies]

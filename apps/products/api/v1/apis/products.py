@@ -9,6 +9,7 @@ from apps.products.serializers import ProductSerializer
 
 class ProductViewSet(viewsets.ViewSet):
     permission_classes = [AllowAny]
+    # renderer_classes = [CustomAesRenderer]
 
     def list(self, request):
         category = request.query_params.get("category")

@@ -20,12 +20,16 @@ from config.tasks import send_mail_to_users
 class ChangePasswordApi(generics.UpdateAPIView):
     """change old password"""
 
+    # renderer_classes = [CustomAesRenderer]
+
     queryset = User.objects.all()
     serializer_class = ChangePasswordSerializer
 
 
 class ResetPasswordApi(APIView):
     """send reset password email"""
+
+    # renderer_classes = [CustomAesRenderer]
 
     permission_classes = [AllowAny]
 
@@ -55,6 +59,7 @@ class ConfirmPasswordApi(APIView):
     """confirm reset password"""
 
     permission_classes = [AllowAny]
+    # renderer_classes = [CustomAesRenderer]
 
     def post(self, request, *args, **kwargs):
         serializer = ConfirmPasswordSerializer(data=request.data)

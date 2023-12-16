@@ -6,6 +6,8 @@ from apps.products.serializers import CommentSerializer
 
 
 class CommentApiView(APIView):
+    # renderer_classes = [CustomAesRenderer]
+
     def post(self, request, *args, **kwargs):
         serializer = CommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

@@ -8,6 +8,8 @@ from apps.users.serializers import UpdateProfileSerializer
 class UserProfileApi(generics.UpdateAPIView):
     """Update User Profile"""
 
+    # renderer_classes = [CustomAesRenderer]
+
     serializer_class = UpdateProfileSerializer
     queryset = User.objects.all()
 

@@ -10,6 +10,7 @@ class RegisterApi(generics.GenericAPIView):
     """Registers user"""
 
     permission_classes = [AllowAny]
+    # renderer_classes = [CustomAesRenderer]
 
     def post(self, request, *args, **kwargs):
         serializer = RegisterSerializer(data=request.data)

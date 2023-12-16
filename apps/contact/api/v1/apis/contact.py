@@ -8,6 +8,7 @@ from apps.contact.serializers import ContactUsSerializer
 
 class ContactUsView(APIView):
     permission_classes = [AllowAny]
+    # renderer_classes = [CustomAesRenderer]
 
     def post(self, request, *args, **kwargs):
         serializer = ContactUsSerializer(data=request.data)

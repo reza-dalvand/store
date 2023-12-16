@@ -10,6 +10,7 @@ from apps.products.models import Product, ProductBrand, ProductCategory
 
 class Home(APIView):
     permission_classes = [AllowAny]
+    # renderer_classes = [CustomAesRenderer]
 
     def get(self, request):
         latest_products = Product.objects.active_products().order_by("-created_at")
@@ -22,6 +23,6 @@ class Home(APIView):
             "brands": brands,
             "slides": slides,
         }
-        serializer = HomeSerializer(data)
 
+        serializer = HomeSerializer(data)
         return Response(serializer.data, status=status.HTTP_200_OK)
