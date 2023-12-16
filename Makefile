@@ -1,8 +1,8 @@
 run-server:
 	python manage.py runserver
 
-create-user:
-		python manage.py createsuperuser
+user:
+	python manage.py createsuperuser
 
 migrate:
 	python manage.py makemigrations

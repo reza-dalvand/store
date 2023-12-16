@@ -14,7 +14,7 @@ from apps.users.serializers import (
     ConfirmPasswordSerializer,
     ResetPasswordSerializer,
 )
-from scripts.mail import send_mail_to_users
+from config.tasks import send_mail_to_users
 
 
 class ChangePasswordApi(generics.UpdateAPIView):
@@ -44,7 +44,7 @@ class ResetPasswordApi(APIView):
                 )
                 + f"?uid={user.uid}"
             )
-            send_mail_to_users(
+            send_mail_to_users.delay(
                 _("change password"), f"click on link {callback_url}", [user.email]
             )
             return Response(status=status.HTTP_200_OK)
