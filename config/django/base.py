@@ -89,7 +89,7 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     # versioning
-    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
     "ALLOWED_VERSIONS": ["v1", "v2"],
     "DEFAULT_VERSION": "v1",
 }
@@ -145,6 +145,13 @@ LANGUAGES = (
 LOCALE_PATHS = [
     BASE_DIR / "locale/",
 ]
+
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / "assets",
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
